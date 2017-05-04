@@ -59,6 +59,26 @@
 
 <script>
 
+function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[ data-key="${e.keyCode}"]`);
+    if (!audio) return;
+    audio.currentTime = 0 //repeats audio from beginning
+    audio.play();
+
+    key.classList.add('playing')
+}
+
+
+function removeTransition(e){
+  // if (e.propertyName !== 'transform') return; //skips if its not a transform
+  this.classList.remove('playing');
+}//function to remove the transition
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+ // loop through each to add an addEventListener and once the transition is done it will be removed
+window.addEventListener('keydown', playSound);
 </script>
 
 
